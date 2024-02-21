@@ -1,6 +1,7 @@
-# Summarise waterside versions
+# 06/02/2024
+# Josh Jones
 
-# devtools::install_github("a-benini/sfhelpers")
+# Summarise waterside versions
 
 librarian::shelf(tidyverse, sf)
 

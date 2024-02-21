@@ -1,4 +1,9 @@
-librarian::shelf(tidyverse, sf, tictoc)
+# 06/02/2024
+# Josh Jones
+
+# summarise waterlink and waterlinkset
+
+librarian::shelf(dplyr, readr, sf)
 
 waterside_OS_NGD_waterlink <- st_read(
     dsn = out_gpkg, 

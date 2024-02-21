@@ -1,7 +1,7 @@
 # 08/02/2024
-# Josh JOnes
+# Josh Jones
 
-# combine nodes with attributes and BI distance
+# summarise the routing results
 
 librarian::shelf(tidyverse, sf, writexl, viridis)
 
