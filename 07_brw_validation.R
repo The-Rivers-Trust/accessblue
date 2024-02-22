@@ -3,9 +3,9 @@
 library(sf, tidyverse)
 
 # Path
-prj_path <- "C:/Users/JoshJones/The Rivers Trust/Technical Team Data - Projects/Blue Space 15 minute neghbourhoods/Maps/BI_15_minute/BI_15_minute.gdb"
+prj_path <- "../../Maps/BI_15_minute/BI_15_minute.gdb"
 # Output gpkg path, because sf can't write to gdb
-out_gpkg <- "C:/Users/JoshJones/The Rivers Trust/Technical Team Data - Projects/Blue Space 15 minute neghbourhoods//Data/Analysis/BI_r_outputs.gpkg"
+out_gpkg <- "../../Data/Analysis/BI_r_outputs.gpkg"
 
 # coordinate reference system
 proj_epsg <- 7405

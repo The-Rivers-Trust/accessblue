@@ -11,16 +11,16 @@
 librarian::shelf(tidyverse, sf, tictoc)
 
 # Path
-prj_path <- "../Maps/BI_15_minute/BI_15_minute.gdb"
+prj_path <- "../../Maps/BI_15_minute/BI_15_minute.gdb"
 # Output gpkg path, because sf can't write to gdb
-out_gpkg <- "../Data/Analysis/BI_r_outputs.gpkg"
+out_gpkg <- "../../Data/Analysis/BI_r_outputs.gpkg"
 
-osngd_wtr_fts_path <- "../Data/Source/OS Hub Download/OS Hub Download/wtr_fts_water/wtr_fts_water.gpkg"
-wtr_ntwk_waterlink_path <- "../Data/Source/OS Hub Download/OS Hub Download/wtr_ntwk_waterlink/wtr_ntwk_waterlink.gpkg"
-wtr_ntwk_waterlinkset_path <- "../Data/Source/OS Hub Download/OS Hub Download/wtr_ntwk_waterlinkset/wtr_ntwk_waterlinkset.gpkg"
+osngd_wtr_fts_path <- "../../Data/Source/OS Hub Download/OS Hub Download/wtr_fts_water/wtr_fts_water.gpkg"
+wtr_ntwk_waterlink_path <- "../../Data/Source/OS Hub Download/OS Hub Download/wtr_ntwk_waterlink/wtr_ntwk_waterlink.gpkg"
+wtr_ntwk_waterlinkset_path <- "../../Data/Source/OS Hub Download/OS Hub Download/wtr_ntwk_waterlinkset/wtr_ntwk_waterlinkset.gpkg"
 
 # urban LSOA 
-lsoa_path <- "../Data/Source/Urban_LSOA/Urban_LSOA/Urban_LSOAs.shp"
+lsoa_path <- "../../Data/Source/Urban_LSOA/Urban_LSOA/Urban_LSOAs.shp"
 
 # coordinate reference system
 proj_epsg <- 7405

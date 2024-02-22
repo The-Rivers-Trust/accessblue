@@ -1,11 +1,14 @@
 # 18/01/2024
 # Josh Jones
-librarian::shelf(tidyverse, sf, tictoc)
+librarian::shelf(tidyverse, sf)
 
-# Path
-prj_path <- "C:/Users/JoshJones/The Rivers Trust/Technical Team Data - Projects/Blue Space 15 minute neghbourhoods/Maps/BI_15_minute/BI_15_minute.gdb"
+# find the distance between OS NGD nodes and PROW nodes 
+# i.e. potential duplicate pairs
+# the manually check a subset of potential duplicate pairs in a GIS GUI
+# to define the duplicate exclusion threshold
+
 # Output gpkg path, because sf can't write to gdb
-out_gpkg <- "C:/Users/JoshJones/The Rivers Trust/Technical Team Data - Projects/Blue Space 15 minute neghbourhoods//Data/Analysis/BI_r_outputs.gpkg"
+out_gpkg <- "../../Data/Analysis/BI_r_outputs.gpkg"
 
 # coordinate reference system
 proj_epsg <- 7405
@@ -114,3 +117,6 @@ current_nodes %>%
     st_write(out_gpkg,
              "aire_calder_current_path_access_nodes",
              append = FALSE)
+
+# now manually check a subset of potential duplicate pairs to define
+# the duplicate exclusion threshold

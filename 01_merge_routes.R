@@ -9,10 +9,10 @@
 librarian::shelf(tidyverse, sf, tictoc, lwgeom)
 
 # paths
-prj_path <- "../Maps/BI_15_minute/BI_15_minute.gdb"
+prj_path <- "../../Maps/BI_15_minute/BI_15_minute.gdb"
 # Output gpkg path, because sf can't write to gdb
-out_gpkg <- "../Data/Analysis/BI_r_outputs.gpkg"
-os_ngd_path <- "../Data/Source/OS Hub Download/OS Hub Download/"
+out_gpkg <- "../../Data/Analysis/BI_r_outputs.gpkg"
+os_ngd_path <- "../../Data/Source/OS Hub Download/OS Hub Download/"
 
 prow_path <- "C:/Users/JoshJones/The Rivers Trust/BI Experiential Indicator - Documents/Scoping/ProProjects/BI data processing/prow.gdb"
 path_path <- "trn_ntwk_pathlink"
@@ -20,9 +20,6 @@ pave_path <- "trn_ntwk_pavementlink"
 conn_path <- "trn_ntwk_connectinglink"
 road_path <- "trn_ntwk_roadlink"
 prj_path <- "../Maps/BI_15_minute/BI_15_minute.gdb"
-
-# out gpkg path, because sf can't write to gbd
-out_gpkg <- "../Data/Analysis/BI_r_outputs.gpkg"
 
 # Function to read OS NGD data
 read_osngd <- function(path){
