@@ -20,6 +20,30 @@ st_erase <- function(x, y) {
     st_difference(x, st_union(st_combine(y)))
 }
 
+# Function to update geom length and add lsoa to compare rural vs urban
+calculate_length_difference <- function(df, lsoa) {
+  df_total <- df %>%
+    ungroup() %>%
+    mutate(geom_length_m = st_length(.)) %>%
+    st_drop_geometry() %>%
+    summarise(total_km = round(sum(geom_length_m) / 1000, 1))
+  
+  # st_intersection is the same as clip in Arc or QGIS
+  df_lsoa <- df %>%
+    st_intersection(lsoa) %>%
+    mutate(geom_length_m = st_length(.)) %>%
+    st_drop_geometry() %>%
+    summarise(urban_km = round(sum(geom_length_m) / 1000, 1))
+  
+  urban <- df_lsoa
+  rural <- abs(df_lsoa - df_total) %>%
+    rename(rural_km = urban_km)
+  
+  result_df <- data.frame(df_total, urban, rural)
+  
+  return(result_df)
+}
+
 # coordinate reference system
 proj_epsg <- 7405
 
