@@ -33,44 +33,61 @@ lsoa_urban_rural <- lsoa %>%
   mutate(urban_rural = case_when(LSOA21CD %in% urban_lsoa$LSOA11CD ~ "urban",
                                  TRUE ~ "rural"))
 
-# Join nodes to polygons
+# Join polygons to nodes
 # LSOA
 urban_rural_count <- nodes %>%
-  st_join(lsoa_urban_rural) %>%
+  distinct(accessible_waterside_collection_id, .keep_all = TRUE) %>%
+  st_join(lsoa_urban_rural %>% st_make_valid()) %>%
   st_drop_geometry() %>%
   group_by(LSOA21CD, urban_rural) %>%
   summarise(n_points = n(),
             accessible_length = sum(accessible_waterside_collection_length))  %>% 
-  ungroup()
+  ungroup() %>%
+  mutate(accessible_length_km = round(accessible_length/1000, 2))
 
 urban_rural_count_lsoa <- lsoa %>%
   mutate(ctry = substr(LSOA21CD, 1, 4)) %>% 
   filter(ctry == "E010") %>%
-  left_join(urban_rural_count, by = "LSOA21CD") 
+  left_join(urban_rural_count, by = "LSOA21CD")  %>%
+  select(-c("LSOA21NMW", "BNG_E", "BNG_N", "LAT", "LONG", "GlobalID", "Shape_Area", "Shape_Length", "accessible_length", "ctry")) %>%
+  mutate(urban_rural = case_when(LSOA21CD %in% urban_lsoa$LSOA11CD ~ "urban",
+                                 TRUE ~ "rural"))
+urban_rural_count_lsoa[is.na(urban_rural_count_lsoa)] <- 0
 
 # ggplot(urban_rural_count_lsoa ) +
-#   geom_sf(color = "white", aes(fill = accessible_length))
+#   geom_sf(color = "white", aes(fill = accessible_length_km))
 
 # Westmin
 westmin_count <- nodes %>%
+  distinct(accessible_waterside_collection_id, .keep_all = TRUE) %>%
   st_join(westmin %>% st_make_valid()) %>%
   st_drop_geometry() %>%
   group_by(PCON24CD) %>%
   summarise(n_points = n(),
             accessible_length = sum(accessible_waterside_collection_length)) %>% 
-  ungroup() 
+  ungroup() %>%
+  mutate(accessible_length_km = round(accessible_length/1000, 2))
 
 count_westmin <- westmin %>%
   left_join(westmin_count, by = "PCON24CD") %>%
   mutate(ctry = substr(PCON24CD, 1,1)) %>%
-  filter(ctry == "E")
+  filter(ctry == "E") %>%
+  select(-c("PCON24NMW", "BNG_E", "BNG_N", "LAT", "LONG", "GlobalID", "Shape__Area", "Shape__Length", "FID", "accessible_length", "ctry"))
+count_westmin[is.na(count_westmin)] <- 0
 
-ggplot(count_westmin) +
-  geom_sf(color = "white", aes(fill = n_points))
-
-ggplot(count_westmin) +
-  geom_sf(color = "white", aes(fill = accessible_length))
+# ggplot(count_westmin) +
+#   geom_sf(color = "white", aes(fill = n_points))
+# 
+# ggplot(count_westmin) +
+#   geom_sf(color = "white", aes(fill = accessible_length))
 
 # Load
-st_write(count_westmin, dsn = proj_db, layer = "westminster_con_access_summary")
-st_write(urban_rural_count_lsoa, dsn = proj_db, layer = "urban_rural_access_summary")
+st_write(count_westmin, 
+         dsn = proj_db, 
+         layer = "westminster_con_access_summary", 
+         append = FALSE)
+
+st_write(urban_rural_count_lsoa, 
+         dsn = proj_db, 
+         layer = "urban_rural_access_summary", 
+         append = FALSE)
